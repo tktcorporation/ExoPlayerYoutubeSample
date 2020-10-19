@@ -13,23 +13,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var greeting = "こんにちは"
-        val trialTime = Date()                         //追加
-        val calendar = GregorianCalendar()             //追加
-        calendar.time = trialTime                      //追加
+        val trialTime = Date()
+        val calendar = GregorianCalendar()
+        calendar.time = trialTime
 
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)  //追加
-        if (hour in 1..11) {                           //追加
-            greeting = "おはよう"                       //追加
-        } else if (15 < hour) {                        //追加
-            greeting = "こんばんは"                     //追加
-        }                                              //追加
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        if (hour in 1..11) {
+            greeting = "おはよう"
+        } else if (15 < hour) {
+            greeting = "こんばんは"
+        }
 
         textview.text = greeting
 
-        rootLayout.setOnClickListener {             //追加
-            sheepCount++                            //追加
-            val sheepText = "ひつじが$sheepCount 匹"  //追加
-            textview.text = sheepText               //追加
+        rootLayout.setOnClickListener {
+            sheepCount++
+            val sheepText = "ひつじが $sheepCount 匹"
+            textview.text = sheepText
+
+            when(sheepCount % 2) {
+                0 -> imageView1.setImageResource(R.drawable.sheep_sleeping)
+                else -> imageView1.setImageResource(R.drawable.sheep_standing)
+            }
         }
     }
 }
