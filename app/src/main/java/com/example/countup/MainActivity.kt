@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         rootLayout.setOnClickListener {
             sheep.add()
             textview.text = sheep.getCountText()
-            onParallelGetButtonClick()
+            setUrlText()
 
             when(sheep.isStanding()) {
                 true -> {
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //非同期処理でHTTP GETを実行します。
-    private fun onParallelGetButtonClick() = runBlocking {
+    private fun setUrlText() = runBlocking {
         //Mainスレッドでネットワーク関連処理を実行するとエラーになるためBackgroundで実行
         withContext(Dispatchers.Default) { YoutubeHttp().fetchM3U8Url() }.let {
             m3u8text.text = it
