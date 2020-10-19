@@ -1,6 +1,6 @@
 package com.example.countup.domain
 
-class Sheeps {
+class Sheep {
     private var items: MutableList<Int> = mutableListOf()
 
     fun add() {
