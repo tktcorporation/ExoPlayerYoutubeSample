@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.countup.domain.Greeting
 import com.example.countup.domain.Sheep
+import com.example.countup.fragment.UrlTextFragment
 import com.example.countup.infrastructure.http.YoutubeHttp
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             sheep.add()
             textview.text = sheep.getCountText()
             setUrlText()
+            addFirstFragment()
 
             when(sheep.isStanding()) {
                 true -> {
@@ -45,5 +47,11 @@ class MainActivity : AppCompatActivity() {
         withContext(Dispatchers.Default) { YoutubeHttp().fetchM3U8Url() }.let {
             m3u8text.text = it
         }
+    }
+
+    private fun addFirstFragment() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.rootLayout, UrlTextFragment())
+        fragmentTransaction.commit()
     }
 }
