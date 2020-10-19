@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         rootLayout.setOnClickListener {
             sheep.add()
             textview.text = sheep.getCountText()
-            setUrlText()
             addFirstFragment()
 
             when(sheep.isStanding()) {
@@ -41,13 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //非同期処理でHTTP GETを実行します。
-    private fun setUrlText() = runBlocking {
-        //Mainスレッドでネットワーク関連処理を実行するとエラーになるためBackgroundで実行
-        withContext(Dispatchers.Default) { YoutubeHttp().fetchM3U8Url() }.let {
-            m3u8text.text = it
-        }
-    }
+
 
     private fun addFirstFragment() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
