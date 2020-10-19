@@ -4,14 +4,14 @@ import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.countup.domain.Greeting
-import com.example.countup.domain.Sheeps
+import com.example.countup.domain.Sheep
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    val sheeps = Sheeps()
-    var mp: MediaPlayer? = null
+    private val sheep = Sheep()
+    private var mp: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,10 +21,10 @@ class MainActivity : AppCompatActivity() {
         mp = MediaPlayer.create(applicationContext, R.raw.cry)
 
         rootLayout.setOnClickListener {
-            sheeps.add()
-            textview.text = sheeps.getCountText()
+            sheep.add()
+            textview.text = sheep.getCountText()
 
-            when(sheeps.isStanding()) {
+            when(sheep.isStanding()) {
                 true -> {
                     imageView1.setImageResource(R.drawable.sheep_sleeping)
                     mp?.start()
