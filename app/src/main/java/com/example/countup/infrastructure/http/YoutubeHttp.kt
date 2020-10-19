@@ -1,6 +1,7 @@
 package com.example.countup.infrastructure.http
 
 import android.util.Log
+import com.example.countup.domain.YoutubeInfo
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
@@ -9,10 +10,8 @@ object HttpClient {
 }
 
 class YoutubeHttp() {
-    private val youtubeVideoUrl = "https://example.com/login"
-
     // Function that makes the network request, blocking the current thread
-    suspend fun fetchM3U8Url(): String {
+    fun fetchM3U8Url(): String {
         val client = HttpClient.instance
         val request = Request.Builder()
             .url("https://www.youtube.com/get_video_info?video_id=rvkxtVkvawc")
@@ -26,9 +25,6 @@ class YoutubeHttp() {
             Log.e("body == null", "onViewCreated: received body is null.")
             body = "sss"
         }
-        val regex = "(https%3A%2F%2Fmanifest.googlevideo.com.+m3u8)"
-        val urls = regex.toRegex(RegexOption.IGNORE_CASE).findAll(body).map{it.value}
-        val url = urls.toList()[0]
-        return url
+        return YoutubeInfo(body).extractM3U8URL()
     }
 }
