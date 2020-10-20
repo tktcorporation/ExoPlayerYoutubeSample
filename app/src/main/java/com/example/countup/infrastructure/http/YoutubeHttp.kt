@@ -1,5 +1,6 @@
 package com.example.countup.infrastructure.http
 
+import android.net.Uri
 import android.util.Log
 import com.example.countup.domain.YoutubeInfo
 import okhttp3.OkHttpClient
@@ -25,6 +26,6 @@ class YoutubeHttp() {
             Log.e("body == null", "onViewCreated: received body is null.")
             body = "sss"
         }
-        return YoutubeInfo(body).extractM3U8URL()
+        return Uri.decode(YoutubeInfo(body).extractM3U8URL())
     }
 }

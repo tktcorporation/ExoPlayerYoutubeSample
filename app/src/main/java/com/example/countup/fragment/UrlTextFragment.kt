@@ -1,6 +1,8 @@
 package com.example.countup.fragment
 
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,7 +16,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
-class UrlTextFragment : Fragment() {
+class UrlTextFragment(private val ctx: Context) : Fragment() {
+
+    private var m3u8url: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,8 +32,20 @@ class UrlTextFragment : Fragment() {
         super.onStart()
         setUrlText()
         start_video_button.setOnClickListener {
-            setUrlText()
+            loadVideoFragment()
         }
+    }
+
+    private fun loadVideoFragment() {
+        val fragmentTransaction = fragmentManager?.beginTransaction()
+        Log.d(TAG, "loadVideoFragment: $m3u8url")
+        fragmentTransaction?.add(R.id.rootLayout, BasicPlayerFragment(ctx, Uri.parse(Uri.decode(m3u8url))))
+        fragmentTransaction?.commit()
+    }
+
+    private fun setM3U8url(url: String) {
+        m3u8url = url
+        m3u8text.text = url
     }
 
     //非同期処理でHTTP GETを実行します。
@@ -37,7 +53,7 @@ class UrlTextFragment : Fragment() {
         //Mainスレッドでネットワーク関連処理を実行するとエラーになるためBackgroundで実行
         withContext(Dispatchers.Default) { YoutubeHttp().fetchM3U8Url() }.let {
             Log.d(TAG, "setUrlText: $it")
-            m3u8text.text = it
+            setM3U8url(it)
         }
     }
 }
