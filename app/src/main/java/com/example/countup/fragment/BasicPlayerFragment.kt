@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.countup.R
+import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ExoPlayerFactory
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
@@ -20,7 +22,7 @@ class BasicPlayerFragment(private val ctx: Context, private val uri : Uri): Frag
 
     private lateinit var playerView: PlayerView
 
-    private lateinit var simpleExoPlayer: SimpleExoPlayer
+    private lateinit var exoPlayer: ExoPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,14 +35,15 @@ class BasicPlayerFragment(private val ctx: Context, private val uri : Uri): Frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(ctx)
-        simpleExoPlayer.apply {
+        exoPlayer = ExoPlayerFactory.newSimpleInstance(ctx)
+        exoPlayer.repeatMode = Player.REPEAT_MODE_ALL
+        exoPlayer.apply {
             prepare(buildMediaSource())
         }
 
         playerView = player_view
         playerView.apply {
-            player = simpleExoPlayer
+            player = exoPlayer
         }
     }
 
