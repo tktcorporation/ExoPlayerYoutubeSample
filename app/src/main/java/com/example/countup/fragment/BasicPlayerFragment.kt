@@ -37,6 +37,7 @@ class BasicPlayerFragment(private val ctx: Context, private val uri : Uri): Frag
 
         exoPlayer = SimpleExoPlayer.Builder(ctx).build()
         exoPlayer.repeatMode = Player.REPEAT_MODE_ALL
+        exoPlayer.playWhenReady = true
         exoPlayer.apply {
             prepare(buildMediaSource())
         }
