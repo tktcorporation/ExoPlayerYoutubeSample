@@ -35,7 +35,7 @@ class BasicPlayerFragment(private val ctx: Context, private val uri : Uri): Frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        exoPlayer = ExoPlayerFactory.newSimpleInstance(ctx)
+        exoPlayer = SimpleExoPlayer.Builder(ctx).build()
         exoPlayer.repeatMode = Player.REPEAT_MODE_ALL
         exoPlayer.apply {
             prepare(buildMediaSource())
