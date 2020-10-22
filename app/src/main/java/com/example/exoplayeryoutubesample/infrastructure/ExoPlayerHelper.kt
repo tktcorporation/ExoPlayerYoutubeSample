@@ -1,4 +1,4 @@
-package com.example.exoplayeryoutubesample.infrastructure.http
+package com.example.exoplayeryoutubesample.infrastructure
 
 import android.content.ContentValues
 import android.content.Context
@@ -15,7 +15,6 @@ import java.lang.Error
 class ExoPlayerHelper(
     private val ctx: Context,
 ) {
-
     private var exoPlayer: ExoPlayer? = null
     private var mediaSource: ProgressiveMediaSource? = null
 
