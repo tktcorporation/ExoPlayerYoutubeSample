@@ -1,55 +1,59 @@
 package com.example.countup.infrastructure.http
 
+import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
-import com.example.countup.R
-import com.google.android.exoplayer2.ExoPlaybackException
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
+import android.util.Log
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.source.hls.HlsMediaSource
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import java.lang.Error
 
 class ExoPlayerHelper(
     private val ctx: Context,
-//    onError: (ExoPlaybackException) -> Unit,
-//    onPlayerBuffer: (Boolean) -> Unit
 ) {
 
-    var exoPlayer: ExoPlayer? = null
+    private var exoPlayer: ExoPlayer? = null
     private var mediaSource: ProgressiveMediaSource? = null
 
-    private val playerListener = object : Player.EventListener {
+    private val defaultEventListener = object : Player.EventListener {
         override fun onPlayerError(error: ExoPlaybackException) {
-//            onPlayerError(error)
-//            onError(error)
-        }
-
-        override fun onPlaybackStateChanged(playbackState: Int) {
-//            onPlaybackStateChanged(playbackState)
-//            onPlayerBuffer(playbackState == Player.STATE_BUFFERING)
+            Log.d(ContentValues.TAG, "onPlayerError()")
+            when(error.type) {
+                ExoPlaybackException.TYPE_SOURCE -> {
+                    Log.d(ContentValues.TAG, "error - TYPE_SOURCE")
+                }
+                ExoPlaybackException.TYPE_RENDERER -> {
+                    Log.d(ContentValues.TAG, "error - TYPE_RENDERER")
+                }
+                ExoPlaybackException.TYPE_UNEXPECTED -> {
+                    Log.d(ContentValues.TAG, "error - TYPE_UNEXPECTED")
+                }
+            }
         }
     }
 
-    fun initializePlayer(url: String) {
-        exoPlayer = SimpleExoPlayer.Builder(ctx).build()
-        exoPlayer!!.repeatMode = Player.REPEAT_MODE_ALL
-        exoPlayer!!.addListener(playerListener)
+    fun initializePlayer(uri: Uri, eventListener: Player.EventListener = defaultEventListener) {
+        exoPlayer = SimpleExoPlayer.Builder(ctx).setBandwidthMeter(DefaultBandwidthMeter.getSingletonInstance(ctx)).build()
+        exoPlayer?.repeatMode = Player.REPEAT_MODE_ALL
+        exoPlayer?.playWhenReady = true
+        exoPlayer?.addListener(eventListener)
+        exoPlayer?.setMediaSource(buildMediaSource(uri))
+        exoPlayer?.prepare()
+    }
 
-        val userAgent =
-            Util.getUserAgent(ctx, ctx.getString(R.string.app_name))
-        mediaSource = ProgressiveMediaSource
-            .Factory(
-                DefaultDataSourceFactory(ctx, userAgent),
-                DefaultExtractorsFactory()
-            )
-            .createMediaSource(Uri.parse(url))
+    fun rebuildPlayerMediaSource(uri: Uri)  {
+        Log.d(ContentValues.TAG, "rebuildPlayerMediaSource")
+        exoPlayer?.setMediaSource(buildMediaSource(uri))
+        exoPlayer?.prepare()
+    }
 
-        exoPlayer!!.prepare(mediaSource!!, true, false)
-        exoPlayer!!.playWhenReady = true
+    fun getPlayer(): ExoPlayer {
+        if (exoPlayer == null) {throw Error("player is not found")}
+        return exoPlayer!!
     }
 
     private fun killPlayer() {
@@ -59,4 +63,19 @@ class ExoPlayerHelper(
             mediaSource = null
         }
     }
+
+    private fun createDataSource(): DefaultDataSourceFactory {
+        return DefaultDataSourceFactory(
+            ctx,
+            Util.getUserAgent(ctx, "ExoPlayer")
+        )
+    }
+
+    private fun buildMediaSource(uri: Uri): HlsMediaSource {
+        return HlsMediaSource
+            .Factory(createDataSource())
+            .createMediaSource(MediaItem.fromUri(uri))
+    }
+
+
 }
