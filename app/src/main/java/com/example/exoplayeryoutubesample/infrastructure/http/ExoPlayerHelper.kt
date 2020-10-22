@@ -1,4 +1,4 @@
-package com.example.countup.infrastructure.http
+package com.example.exoplayeryoutubesample.infrastructure.http
 
 import android.content.ContentValues
 import android.content.Context

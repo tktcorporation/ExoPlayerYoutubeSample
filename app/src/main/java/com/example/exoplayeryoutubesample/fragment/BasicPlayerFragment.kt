@@ -1,4 +1,4 @@
-package com.example.countup.fragment
+package com.example.exoplayeryoutubesample.fragment
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -9,14 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.countup.R
-import com.example.countup.infrastructure.http.ExoPlayerHelper
-import com.example.countup.infrastructure.http.YoutubeHttp
+import com.example.exoplayeryoutubesample.R
+import com.example.exoplayeryoutubesample.infrastructure.http.ExoPlayerHelper
+import com.example.exoplayeryoutubesample.infrastructure.http.YoutubeHttp
 import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.source.hls.HlsMediaSource
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.util.Util.getUserAgent
 import kotlinx.android.synthetic.main.fragment_player.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking

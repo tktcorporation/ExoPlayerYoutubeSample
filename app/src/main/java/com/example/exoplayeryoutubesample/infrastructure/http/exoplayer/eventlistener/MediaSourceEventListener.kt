@@ -1,4 +1,4 @@
-package com.example.countup.infrastructure.http.exoplayer.eventlistener
+package com.example.exoplayeryoutubesample.infrastructure.http.exoplayer.eventlistener
 
 import android.content.Context
 import android.widget.Toast

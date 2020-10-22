@@ -1,4 +1,4 @@
-package com.example.countup.fragment
+package com.example.exoplayeryoutubesample.fragment
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -9,8 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.countup.R
-import com.example.countup.infrastructure.http.YoutubeHttp
+import com.example.exoplayeryoutubesample.R
+import com.example.exoplayeryoutubesample.infrastructure.http.YoutubeHttp
 import kotlinx.android.synthetic.main.url_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking

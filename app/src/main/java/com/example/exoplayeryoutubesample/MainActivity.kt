@@ -1,11 +1,11 @@
-package com.example.countup
+package com.example.exoplayeryoutubesample
 
 import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.countup.domain.Greeting
-import com.example.countup.domain.Sheep
-import com.example.countup.fragment.UrlTextFragment
+import com.example.exoplayeryoutubesample.domain.Greeting
+import com.example.exoplayeryoutubesample.domain.Sheep
+import com.example.exoplayeryoutubesample.fragment.UrlTextFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 import java.util.*

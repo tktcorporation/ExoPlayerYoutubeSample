@@ -1,8 +1,8 @@
-package com.example.countup.infrastructure.http
+package com.example.exoplayeryoutubesample.infrastructure.http
 
 import android.net.Uri
 import android.util.Log
-import com.example.countup.domain.YoutubeInfo
+import com.example.exoplayeryoutubesample.domain.YoutubeInfo
 import okhttp3.OkHttpClient
 import okhttp3.Request
 

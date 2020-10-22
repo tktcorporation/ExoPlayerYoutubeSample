@@ -1,4 +1,4 @@
-package com.example.countup.domain
+package com.example.exoplayeryoutubesample.domain
 
 class YoutubeInfo(private val info: String) {
     private val m3u8Regex = "(https%3A%2F%2Fmanifest.googlevideo.com.+m3u8)"

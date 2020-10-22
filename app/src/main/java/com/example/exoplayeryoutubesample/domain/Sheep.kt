@@ -1,4 +1,4 @@
-package com.example.countup.domain
+package com.example.exoplayeryoutubesample.domain
 
 class Sheep {
     private var items: MutableList<Int> = mutableListOf()

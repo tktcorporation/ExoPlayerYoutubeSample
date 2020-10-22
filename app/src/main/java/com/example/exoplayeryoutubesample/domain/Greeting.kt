@@ -1,4 +1,4 @@
-package com.example.countup.domain
+package com.example.exoplayeryoutubesample.domain
 
 import java.util.*
 
