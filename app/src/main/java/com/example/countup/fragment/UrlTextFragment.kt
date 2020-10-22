@@ -39,7 +39,7 @@ class UrlTextFragment(private val ctx: Context) : Fragment() {
     private fun loadVideoFragment() {
         val fragmentTransaction = fragmentManager?.beginTransaction()
         Log.d(TAG, "loadVideoFragment: $m3u8url")
-        fragmentTransaction?.add(R.id.rootLayout, BasicPlayerFragment(ctx, Uri.parse(Uri.decode(m3u8url))))
+        fragmentTransaction?.add(R.id.rootLayout, BasicPlayerFragment(ctx, Uri.parse(Uri.decode(m3u8url)), YoutubeHttp()))
         fragmentTransaction?.commit()
     }
 
