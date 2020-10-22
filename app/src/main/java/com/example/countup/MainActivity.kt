@@ -1,18 +1,13 @@
 package com.example.countup
 
-import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.countup.domain.Greeting
 import com.example.countup.domain.Sheep
-import com.example.countup.fragment.PlayerFragment
 import com.example.countup.fragment.UrlTextFragment
-import com.example.countup.infrastructure.http.YoutubeHttp
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
+
 import java.util.*
 
 class MainActivity() : AppCompatActivity() {
