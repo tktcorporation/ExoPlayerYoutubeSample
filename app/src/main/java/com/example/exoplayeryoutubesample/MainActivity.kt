@@ -27,7 +27,7 @@ class MainActivity() : AppCompatActivity() {
 
     private fun addVideoFragment(videoId: Id) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.add(R.id.rootLinerLayout, BasicPlayerFragment(this, videoId, YoutubeHttp(HttpClient)))
+        fragmentTransaction.replace(R.id.rootLinerLayout, BasicPlayerFragment(this, videoId, YoutubeHttp(HttpClient)))
         fragmentTransaction.commit()
     }
 
