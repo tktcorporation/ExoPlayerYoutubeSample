@@ -12,6 +12,10 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import java.lang.Error
 
+/**
+ * How to play
+ * initializePlayer -> setPlayerMediaSource -> prepare
+ */
 class ExoPlayerHelper(
     private val ctx: Context,
 ) {
@@ -35,18 +39,19 @@ class ExoPlayerHelper(
         }
     }
 
-    fun initializePlayer(uri: Uri, eventListener: Player.EventListener = defaultEventListener) {
+    fun initializePlayer(eventListener: Player.EventListener = defaultEventListener) {
         exoPlayer = SimpleExoPlayer.Builder(ctx).setBandwidthMeter(DefaultBandwidthMeter.getSingletonInstance(ctx)).build()
         exoPlayer?.repeatMode = Player.REPEAT_MODE_ALL
         exoPlayer?.playWhenReady = true
         exoPlayer?.addListener(eventListener)
-        exoPlayer?.setMediaSource(buildMediaSource(uri))
-        exoPlayer?.prepare()
     }
 
-    fun rebuildPlayerMediaSource(uri: Uri)  {
+    fun setPlayerMediaSource(uri: Uri)  {
         Log.d(ContentValues.TAG, "rebuildPlayerMediaSource")
         exoPlayer?.setMediaSource(buildMediaSource(uri))
+    }
+
+    fun prepare() {
         exoPlayer?.prepare()
     }
 
