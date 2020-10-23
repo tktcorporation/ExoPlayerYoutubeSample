@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ExoPlayerYoutubeSample</string>
+    <string name="search_hint">type a video id</string>
 </resources>
